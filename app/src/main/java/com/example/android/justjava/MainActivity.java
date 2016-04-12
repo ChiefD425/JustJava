@@ -5,11 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends ActionBarActivity {
 
+    int numberOfCoffees = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +23,6 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int numberOfCoffees = 3;
         display(numberOfCoffees);
         displayPrice(numberOfCoffees * 5);
     }
@@ -32,6 +34,16 @@ public class MainActivity extends ActionBarActivity {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
+    }
+
+    public void increment(View v) {
+        numberOfCoffees += 1;
+        display(numberOfCoffees);
+    }
+
+    public void decrement(View v) {
+        numberOfCoffees -= 1;
+        display(numberOfCoffees);
     }
 
     /**
