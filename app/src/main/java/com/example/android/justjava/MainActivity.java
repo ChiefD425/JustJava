@@ -23,14 +23,20 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        display(numberOfCoffees);
-        displayPrice(numberOfCoffees * 5);
+        String priceMessage = "Total: $" + (numberOfCoffees * 5);
+        displayMessage(priceMessage + "\nThank You!");
+
+    }
+
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
@@ -38,12 +44,12 @@ public class MainActivity extends ActionBarActivity {
 
     public void increment(View v) {
         numberOfCoffees += 1;
-        display(numberOfCoffees);
+        displayQuantity(numberOfCoffees);
     }
 
     public void decrement(View v) {
         numberOfCoffees -= 1;
-        display(numberOfCoffees);
+        displayQuantity(numberOfCoffees);
     }
 
     /**
