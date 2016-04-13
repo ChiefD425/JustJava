@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Total: $" + calculatePrice(quantity);
+        int price = calculatePrice();
+        String priceMessage = "Total: $" + price;
         priceMessage += "\nThank you!";
         displayMessage(priceMessage);
     }
@@ -33,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This returns the Total price of the order
      *
-     * @param number
-     * @return
      */
-    private int calculatePrice(int number) {
-        return number * priceOfOneCup;
+    private int calculatePrice() {
+
+        return quantity * priceOfOneCup;
     }
+
     /**
      * This method is called when the pluse button is clicked.
      */
     public void increment(View view) {
-        quantity += 1;
+        quantity++;
         displayQuantity(quantity);
     }
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        quantity -= 1;
+        quantity--;
         if (quantity < 0) {
             quantity = 0;
         }
