@@ -12,7 +12,8 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    int quantity = 0;
+    int totalCupsOfCoffee = 0;
+    int priceOfOneCup = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +25,31 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Total: $" + (quantity * 5);
+        String priceMessage = "Total: $" + calculatePrice(totalCupsOfCoffee);
         priceMessage += "\nThank you!";
         displayMessage(priceMessage);
     }
 
+    private int calculatePrice(int quantity) {
+        return quantity * priceOfOneCup;
+    }
     /**
      * This method is called when the pluse button is clicked.
      */
     public void increment(View view) {
-        quantity += 1;
-        display(quantity);
+        totalCupsOfCoffee += 1;
+        display(totalCupsOfCoffee);
     }
 
     /**
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        quantity -= 1;
-        if (quantity < 0) {
-            quantity = 0;
+        totalCupsOfCoffee -= 1;
+        if (totalCupsOfCoffee < 0) {
+            totalCupsOfCoffee = 0;
         }
-        display(quantity);
+        display(totalCupsOfCoffee);
     }
 
     /**
