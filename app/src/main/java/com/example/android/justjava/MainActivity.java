@@ -12,7 +12,7 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    int totalCupsOfCoffee = 0;
+    int quantity = 0;
     int priceOfOneCup = 5;
 
     @Override
@@ -25,31 +25,31 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Total: $" + calculatePrice(totalCupsOfCoffee);
+        String priceMessage = "Total: $" + calculatePrice(quantity);
         priceMessage += "\nThank you!";
         displayMessage(priceMessage);
     }
 
-    private int calculatePrice(int quantity) {
-        return quantity * priceOfOneCup;
+    private int calculatePrice(int number) {
+        return number * priceOfOneCup;
     }
     /**
      * This method is called when the pluse button is clicked.
      */
     public void increment(View view) {
-        totalCupsOfCoffee += 1;
-        display(totalCupsOfCoffee);
+        quantity += 1;
+        display(quantity);
     }
 
     /**
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        totalCupsOfCoffee -= 1;
-        if (totalCupsOfCoffee < 0) {
-            totalCupsOfCoffee = 0;
+        quantity -= 1;
+        if (quantity < 0) {
+            quantity = 0;
         }
-        display(totalCupsOfCoffee);
+        display(quantity);
     }
 
     /**
