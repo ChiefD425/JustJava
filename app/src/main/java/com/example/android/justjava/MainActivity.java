@@ -52,8 +52,20 @@ public class MainActivity extends AppCompatActivity {
         } else
             nameOfCustomer = "Name not found";
 
-        composeEmail(nameOfCustomer, createOrderSummary(nameOfCustomer));
+        Uri emailUri = Uri.parse("mailto:");
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(emailUri);
+
+        //Todo - need to fix the emailSubject
+        intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject + nameOfCustomer);
+
+        intent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(nameOfCustomer));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
+
+    //   composeEmail(nameOfCustomer, createOrderSummary(nameOfCustomer));
 
     /**
      * This returns the Total price of the order
