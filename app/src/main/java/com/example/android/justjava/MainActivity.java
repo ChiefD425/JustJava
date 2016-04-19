@@ -48,24 +48,11 @@ public class MainActivity extends AppCompatActivity {
         EditText nameTextView = (EditText) findViewById(R.id.name_field);
         if (nameTextView != null) {
             nameOfCustomer = nameTextView.getText().toString();
-            emailSubject += nameOfCustomer;
         } else
             nameOfCustomer = "Name not found";
 
-        Uri emailUri = Uri.parse("mailto:");
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(emailUri);
-
-        //Todo - need to fix the emailSubject
-        intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject + nameOfCustomer);
-
-        intent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(nameOfCustomer));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+        composeEmail(emailSubject + nameOfCustomer, createOrderSummary(nameOfCustomer));
     }
-
-    //   composeEmail(nameOfCustomer, createOrderSummary(nameOfCustomer));
 
     /**
      * This returns the Total price of the order
@@ -112,13 +99,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given text on the screen.
+     *
+     * @param nameOfCustomer This is the name of the Customer that is entered on the order screen
+     * @return This returns the whole order message
      */
-  /*  private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-        orderSummaryTextView.setTextSize(24);
-    }*/
     private String createOrderSummary(String nameOfCustomer) {
         calculatePrice();
         String orderSummary = nameOfCustomer;
@@ -130,14 +114,22 @@ public class MainActivity extends AppCompatActivity {
         return orderSummary;
     }
 
+    /**
+     * This function creates the email to send out for the order of coffee
+     *
+     * @param subject The subject of the email to be sent
+     * @param message The contents of the email to send
+     */
     public void composeEmail(String subject, String message) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.setType("text/plain");
+        Uri emailUri = Uri.parse("mailto:");
+
+        intent.setData(emailUri);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, message);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        } else Toast.makeText(MainActivity.this, "There is a problem", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(MainActivity.this, "There is a problem with the email program", Toast.LENGTH_SHORT).show();
     }
 }
